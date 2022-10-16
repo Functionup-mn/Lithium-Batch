@@ -24,7 +24,7 @@ router.get('/test-me2', function(req, res){
 })
 
 router.get('/test-me3', function(req, res){
-    console.log("remove extra space through trim function is:",string.trim())
+    console.log("remove extra space through trim function is:",string.trim()) // it removes the extra space at starting and end of the string.
     console.log("changing the case normal to lower:", string.changetoLowerCase())  // here calling the name of the function not function. for example - cahngetoLowercase is name of the function.
     console.log("changing the case normal to uppre:", string.changetoUpperCase())
 
@@ -33,19 +33,19 @@ router.get('/test-me3', function(req, res){
 
 router.get('/test-me4', function(req, res){
      let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-     let result = tryNew.chunk(months,4)
+     let result = tryNew.chunk(months,4) // chunk function is divided into the subarr which number do you want.
      console.log(result)
 
      let oddNumbers = [1,3,5,7,9,11,13,15,17,19]
-     let result2 = tryNew.tail(oddNumbers,9)
+     let result2 = tryNew.tail(oddNumbers) // tail function remove the 1st element of the arr.
      console.log(result2)
 
      let arr = [1,2,3,2,5]
-     let result3 = tryNew.union(arr)
+     let result3 = tryNew.union(arr) // union function remove repeatative element of the arr.
      console.log(result3)
 
      let arr2 = [["horror","The Shining"],["drama","Titanic"],["thriller","Shutter Island"],["fantasy","Pans Labyrinth"]]
-     let result4 = tryNew.fromPairs(arr2)
+     let result4 = tryNew.fromPairs(arr2) // fromPairs function is to convert in to the key Vlaue pairs.
      console.log(result4)
 
      res.send('My fifth ever api')
