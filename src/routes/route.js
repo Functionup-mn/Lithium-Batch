@@ -14,6 +14,21 @@ router.get('/students', function (req, res){
     res.send(students)
 })
 
+router.get('/movies', function(req, res){
+    let movies = ["3Idiot", "Lagan", "Bajrangi Bhaijan", "KGF", "Aarakshan"]
+    console.log('I think best movies here: ', movies)
+    res.send(movies)
+})
+
+router.get('/movies/:indexNumber', function(req, res){
+    let movies = ["3Idiot", "Lagan", "Bajrangi Bhaijan", "KGF", "Aarakshan"]
+    let requestParams = req.params
+    console.log("The request params is: ", JSON.stringify(requestParams))
+    let moviesFromIndex = requestParams.movies
+    console.log('Name of the movie is ', movies[moviesFromIndex])
+    console.log(requestParams)
+    res.send(movies[moviesFromIndex])
+})
 
 // Example 1 for path params
 router.get('/students/:studentName', function(req, res){
