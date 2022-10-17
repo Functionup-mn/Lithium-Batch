@@ -13,46 +13,74 @@ router.get('/students', function (req, res){
     let students = ['Sabiha', 'Neha', 'Akash']
     res.send(students)
 })
-
+// problem 1:-
 router.get('/movies', function(req, res){
     let movies = ["3Idiot", "Lagan", "Bajrangi Bhaijan", "KGF", "Aarakshan"]
     console.log('I think best movies here: ', movies)
     res.send(movies)
 })
-
+// problem 2 & 3:-
 router.get('/movies/:indexNumber', function(req, res){
     let movies = ["3Idiot", "Lagan", "Bajrangi Bhaijan", "KGF", "Aarakshan"]
     let requestParams = req.params
-    console.log("The request params is: ", JSON.stringify(requestParams))
-    let moviesFromIndex = requestParams.movies
+    let moviesFromIndex = requestParams.indexNumber
+    if(moviesFromIndex < (movies.length)){
     console.log('Name of the movie is ', movies[moviesFromIndex])
     console.log(requestParams)
     res.send(movies[moviesFromIndex])
+    }else{
+        console.log('invalid input')
+        res.send('invalid input')
+    }
+})
+// problem 4:-
+router.get('/films', function(req, res){
+    let films = [ {
+        "id": 1,
+        "name": "3Idiot"
+       }, {
+        "id": 2,
+        "name": "Lagan"
+       }, {
+        "id": 3,
+        "name": "Bajrangi Bhaijan"
+       }, {
+        "id": 4,
+        "name": "KGF"
+       }, {
+        "id": 5,
+        "name": "Aarakshan"
+       }]
+
+    res.send(films)    
+})
+// problem 4 & 5:-
+router.get('/films/:filmId', function(req, res){
+    let films = [ {
+        "id": 1,
+        "name": "3Idiot"
+       }, {
+        "id": 2,
+        "name": "Lagan"
+       }, {
+        "id": 3,
+        "name": "Bajrangi Bhaijan"
+       }, {
+        "id": 4,
+        "name": "KGF"
+       }, {
+        "id": 5,
+        "name": "Aarakshan"
+       }]
+    let reqParams = req.params 
+    let filmsFromId = reqParams.filmId
+    if(filmsFromId < films.id){
+        res.send(films[filmsFromId])
+    }else{
+        res.send('invalid input here')
+    }  
 })
 
-// Example 1 for path params
-router.get('/students/:studentName', function(req, res){
-    // ':' denotes that the following part of route is a variable
-    // The value of this variable is what we are sending in the request url after /students
-    // This value is set in the form of an object inside req.params
-    // The object contain key value pairs
-    // key is the variable in the route
-    // value is whatever dynamic value sent in the request url
-    let myParams = req.params
 
-    // params attribute is fixed in a request object
-    // params contains the path parameters object
-    console.log("The path params in the request are : ", myParams)
-    res.send('The full name is ' + myParams.studentName )
-})
-
-// Example 2 for path params
-router.get('/student-details/:name', function(req, res){
-    let requestParams = req.params
-    console.log("This is the request ", requestParams)
-    let studentName = requestParams.name
-    console.log('Name of the student is ', studentName)
-    res.send('Dummy response')
-})
 
 module.exports = router;
