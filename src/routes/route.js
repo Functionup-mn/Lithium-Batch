@@ -37,10 +37,10 @@ let players =
    router.post('/players', function (req, res) {
  
        //LOGIC WILL COME HERE
-       let obj = req.body.element
-    for(let i=0; i<players.length; i++){
-        if(obj.name === players.name){
-            return res.send("person is already exist")
+       let obj = req.body
+    for(let i=0; i<players.length; i++){  /// for(i of players)
+        if(obj.name == players[i].name){
+            return res.send({msg:"person is already exist"})
         }
     }
      players.push(obj)
