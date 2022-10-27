@@ -18,7 +18,7 @@ const getBooksData= async function (req, res) {
     //     $or: [ {authorName : "Chetan Bhagat" } , { isPublished: true } , {  "year": 1991 }]
     // } ).select( { bookName: 1, authorName: 1, _id: 0})n // SELECT keys that we want
 
-    // let allBooks= await BookModel.find().sort( { sales: -1 }) // SORT
+    // let allBooks= await BookModel.find().sort( { sales: -1 }) // SORT  (sales: -1 - shows the document in descending order && sales: 1 - shows the document in ascending order)
 
     // PAGINATION 
     // let page= req.query.page
@@ -35,11 +35,12 @@ const getBooksData= async function (req, res) {
     // let allBooks= await BookModel.find({ sales: { $gte:  50 }  }) 
     
     // let allBooks= await BookModel.find({     sales : { $in: [10, 17, 82] }     }).count() 
-    // sales : { $in: [10, 17, 82] }
+    // sales : { $in: [10, 17, 82] }   means:- get all the books where the sales matches on of these element in this array.
     
-    // let allBooks= await BookModel.find({     sales : { $nin: [ 17, 82, 137] }     }).select({ sales: 1, _id:0})
+    // let allBooks= await BookModel.find({     sales : { $nin: [ 17, 82, 137] }     }).select({ sales: 1, _id:0})    // $nin:- not in = it is oposite from $in 
     
-    //  let allBooks= await BookModel.find({     $and: [{sales : {$gt: 20}} , [sales:  {$lt: 100}]]    })  //sales is between 20 and 100.... sales > 20 AND sales <100
+    //  let allBooks= await BookModel.find({     $and: [{sales : {$gt: 20}} , [sales:  {$lt:100}]]    }) 
+    //   sales is between 20 and 100.... sales > 20 AND sales <100
     //  let allBooks= await BookModel.find({     sales : {$gt: 20, $lt: 100}   })  //sales is between 20 and 100.... sales > 20 AND sales <100
 
 
@@ -59,8 +60,8 @@ const getBooksData= async function (req, res) {
 
     // REGEX
     // let allBooks= await BookModel.find( { bookName:  /^Int/  }) 
-    // let allBooks= await BookModel.find( { bookName:  /^INT/i  }) 
-    // let allBooks= await BookModel.find( { bookName:  /5$/  }) 
+    // let allBooks= await BookModel.find( { bookName:  /^INT/i  })   // when i don't know what case i used to create data (i stands for ignore case sensitive) 
+    // let allBooks= await BookModel.find( { bookName:  /5$/  })    // i want which type of data which is end from 5
     // let allBooks= await BookModel.find( { bookName:  /.*Programming.*/i  }) 
     
     // ASYNC AWAIT
@@ -68,7 +69,7 @@ const getBooksData= async function (req, res) {
     let a= 2+4
     a= a + 10
     console.log(a)
-    let allBooks= await BookModel.find( )  //normally this is an asynchronous call..but await makes it synchronous
+    let allBooks= await BookModel.find( )  //normally this is an asynchronous call..but await makes it synchronous      (without await normally js runs network calls asynchronously which means that it does not compelete the excution but in case we need the result in this function we awaited , await makes it synchronous)
 
 
     // WHEN AWAIT IS USED: - database + axios
