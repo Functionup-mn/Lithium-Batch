@@ -9,7 +9,7 @@ const createBook= async function (req, res) {
 }
 
 const getBooksData= async function (req, res) {
-    let allBooks= await BookModel.find( {authorName : "HO" } )
+    let allBooks= await BookModel.find( {authorName : "HO" } )  // null and undefined gives falsy value &&                 empty array gives truthy value
     console.log(allBooks)
     if (allBooks.length > 0 )  res.send({msg: allBooks, condition: true})
     else res.send({msg: "No books found" , condition: false})
