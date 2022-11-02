@@ -7,6 +7,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use()
+
 
 mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
     useNewUrlParser: true
@@ -16,7 +18,7 @@ mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzot
 
 app.use (
     function (req, res, next) {
-        console.log ("inside GLOBAL MW");
+        console.log ("inside GLOBAL MW");     // if we write this code bottom of the app.use('/', route) then the code will not excute
         next();
   }
   );
