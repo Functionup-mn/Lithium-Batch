@@ -3,18 +3,20 @@ const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
 const app = express();
+const loggingData = require('./middlewares/mid1')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use()
 
 
-mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
+
+mongoose.connect("mongodb+srv://mnadeem:h1QaS5NNUx2zm2tM@cluster0.v4od3qa.mongodb.net/Lithium-DB", {
     useNewUrlParser: true
 })
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
+
 
 app.use (
     function (req, res, next) {
@@ -22,6 +24,19 @@ app.use (
         next();
   }
   );
+
+  app.use(
+    function(req, res,next){
+        const currentTimeStamps = Date.now()
+        const currentDate = new Date()
+        const ipAddress = req.ip
+        const path = req.originalUrl
+    
+        console.log(currentTimeStamps, currentDate, ipAddress, path)
+    
+        next()
+    }
+  )
 
 app.use('/', route);
 
