@@ -1,4 +1,4 @@
-let axios = require("axios")
+let axios = require('axios')
 
 
 let getStates = async function (req, res) {
@@ -77,7 +77,6 @@ let getOtp = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
-
 
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
