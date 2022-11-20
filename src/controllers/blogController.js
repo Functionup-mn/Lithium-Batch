@@ -9,30 +9,32 @@ const objectId = mongoose.Types.ObjectId
 //2.
 const createBlog = async function (req, res) {
   try {
-    const data = req.body
-    if (data.title.length == 0 || (typeof data.title != "string")) {
-      return res.status(400).send({ msg: "please enter title" })
+    const input = req.body
+    const {title, body, authorId, category} = input
+    if (!title || title.length == 0 || (typeof title != "string")) {
+      return res.status(400).send({status: false, msg: "please enter title properly" })
     }
-    if (data.body.length == 0 || (typeof data.body != "string")) {
-      return res.status(400).send({ msg: "please enter data" })
+    if (!body || body.length == 0 || (typeof body != "string")) {
+      return res.status(400).send({status: false, msg: "please enter data properly " })
     }
-    if (data.authorId.length == 0 || (typeof data.authorId != "string")) {
-      return res.status(400).send({ msg: "please enter authorid" })
+    if (!authorId || authorId.length == 0 || (typeof authorId != "string")) {
+      return res.status(400).send({status: false, msg: "please enter authorid properly " })
     }
-    if (!objectId.isValid(data.authorId)) {
+    if (!objectId.isValid(authorId)) {
       return res.status(400).send({ msg: "please enter correct authorId" })
     }
-    if (data.category.length == 0 || (typeof data.category != "string")) {
-      return res.status(400).send({ msg: "please enter category" })   // also check the data type = string (tags)
+    if (!category || category.length == 0 || (typeof category != "string")) {
+      return res.status(400).send({status: false, msg: "please enter category properly " })   // also check the data type = string (tags)
     }
 
-    const authId = await authorModel.findById(data.authorId)
+    const authId = await authorModel.findById(authorId)
     if (authId) {
-      const datablogging = await blogModel.create(data)
-      res.status(201).send({ data: datablogging })
+      const datablogging = await blogModel.create(input)
+      res.status(201).send({status: true, data: datablogging })
+      console.log(datablogging);
     }
     else {
-      res.status(400).send({ msg: "invalid authorId" })
+      res.status(400).send({status: false, msg: "invalid authorId" })
     }
   }
 
@@ -46,36 +48,38 @@ const createBlog = async function (req, res) {
 //3.
 const getBlog = async function (req, res) {
   try {
-    const { authorId, category, tags, subcategory } = req.query
+    const input = req.query
+    const { authorId, category, tags, subcategory } = input
 
     let obj1 = {
       isDeleted: false,
       isPublished: true,
     }
-
+    // if(!input){
+    //   return res.status(400).send({status: false, msg: "plearse enter authorId or ctegory or tags or subcategory in query params"})
+    // }
     //Adding content to above object for DB call
     if (authorId) {
       obj1.authId = authorId
-      if (obj1.authorId.length == 0 || !(objectId.isValid(obj1.authorId))) {
-        return res.status(400).send({ msg: "please enter authorid properly" })
+      if (authorId.length == 0 || !(objectId.isValid(input.authorId))) {
+        return res.status(400).send({status: false, msg: "please enter valid authorid" })
       }
     }
-
     if (category) {
       obj1.category = category
-      if (obj1.category.length == 0 || (typeof category != "string")) {
-        return res.status(400).send({ mag: "please eneter category " })
+      if (obj1.category.length==0) {
+        return res.status(400).send({ mag: "please eneter category properly " })
       }
     }
     if (tags) {
       obj1.tags = tags
-      if (obj1.tags.length == 0 || (typeof tags != "string")) {
-        return res.status(400).send({ mag: "please eneter tags " })
+      if (obj1.tags.length==0) {
+        return res.status(400).send({ mag: "please eneter tags properly " })
       }
     }
     if (subcategory) {
       obj1.subcategory = subcategory
-      if (obj1.subcategory.length == 0 || (typeof subcategory != "string")) {
+      if (obj1.subcategory.length==0) {
         return res.status(400).send({ mag: "please eneter subcategory " })
       }
     }
@@ -83,15 +87,15 @@ const getBlog = async function (req, res) {
     const result = await blogModel.find(obj1)
 
     if (result) {
-      res.status(201).send({ msg: result })
+      res.status(201).send({status: true, msg: result })
     }
     else {
-      res.status(404).send({ msg: "Nothing Found" })
+      res.status(404).send({status: false, msg: "Nothing Found" })
     }
 
 
   } catch (error) {
-    res.status(500).send({ msg: error.message })
+    res.status(500).send({status: false, msg: error.message })
   }
 }
 

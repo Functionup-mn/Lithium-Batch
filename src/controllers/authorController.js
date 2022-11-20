@@ -8,6 +8,7 @@ const createAuthor = async function(req,res){
   try{
     const data=req.body
     const emailInput=req.body.email
+    const {fname, lname, title, email, password} = data
 
     if(data.fname.length==0 || (typeof data.fname !="string")){  // (typeof data.fname != String) not working??? 
       return res.status(400).send({msg:"please enter your fname properly"})

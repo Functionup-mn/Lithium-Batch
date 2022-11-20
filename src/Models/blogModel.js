@@ -27,12 +27,18 @@
           type: Boolean,
           default: false
         },
-        deletedAt: String,
+        deletedAt: {
+          type: Date,
+          default: null
+        },
         isPublished: {
           type: Boolean,
           default: false
         },
-        publishedAt: String
+        publishedAt: {
+          type: Date,
+          default: null
+        }
   
   },{ timestamps: true})
   
