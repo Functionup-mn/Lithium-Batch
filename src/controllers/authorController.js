@@ -14,7 +14,7 @@ const createAuthor = async function(req,res){
     if (!email) return res.status(400).send({ status: false, msg: "email is requred" })
     if(!password) return res.status(400).send({ status: false, msg: "password is requred" })
      console.log(data)
-     if(data.fname=="" ||data.fname){
+     if(data.fname=="" || data.fname){
     if(data.fname.length==0 || (typeof data.fname !="string")){  // (typeof data.fname != String) not working??? 
       return res.status(400).send({msg:"please enter your fname properly"})
     }

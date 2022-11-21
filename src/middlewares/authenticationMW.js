@@ -4,25 +4,25 @@ const blogModel = require('../Models/blogModel')
 const objectId=mongoose.Types.ObjectId
 
 const authenticate = function (req, res, next) {
-    try {
-        const token = req.headers["x-api-key"]
+      try {
+          const token = req.headers["x-api-key"]
 
-        if (!token) {
-            res.status(400).send({ msg: "Please set x-api-key header" })
-        }
+          if (!token) {
+              res.status(400).send({ msg: "Please set x-api-key header" })
+          }
 
-         jwt.verify(token, "Project1-key",(err,decode) =>{ 
-        if(err){
-            return res.status(400).send({status: false, msg:"Incorrect Token"}) 
-        } 
-        (decode==true)
-          next()
+          jwt.verify(token, "Project1-key",(err,decode) =>{ 
+          if(err){
+              return res.status(400).send({status: false, msg:"Incorrect Token"}) 
+          } 
+          (decode==true)
+            next()
 
-        } )
-    }
-    catch (error) {
-        res.status(500).send({ msg: "Authentication failure", msg2: error.message })
-    }
+          } )
+      }
+      catch (error) {
+          res.status(500).send({ msg: "Authentication failure", msg2: error.message })
+      }
 }
 
 
@@ -86,7 +86,7 @@ const authorization = async function (req, res, next) {
              console.log(decodedToken.authorId)
              console.log(result.authorId)
     
-            if (decodedToken.authorId !== result.authorId.toString()) {
+            if (decodedToken.authorId !== result.authorId.toString()) {  // authorization
                 res.status(401).send({ msg: "User Not authorised" })
             }
             else {
