@@ -8,7 +8,7 @@ const createCollege = async (req,res)=>{
         let data = req.body
         
         let savedData= await collegeModel.create(data)
-        res.status(201).send({status:true, message:savedData})
+        res.status(201).send({status:true, data:savedData})
     }
     catch(err){
         res.status(500).send({status:false, message:err.message})
@@ -17,6 +17,7 @@ const createCollege = async (req,res)=>{
 // =================get interns data with college details==========
 
 const getColleges = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")   // for front-end deployment
     try {
         let collegeName = req.query.collegeName;
         if (!collegeName) {
@@ -55,7 +56,7 @@ const getColleges = async (req, res) => {
             logoLink: collegeData.logoLink,
             interns: internData
         }
-        return res.status(200).send({ status: true, message: data})
+        return res.status(200).send({ status: true, data: data})
 
        
     } catch(err) {
@@ -64,6 +65,5 @@ const getColleges = async (req, res) => {
 }
 
 module.exports.getColleges=getColleges
-
 
 module.exports.createCollege= createCollege
